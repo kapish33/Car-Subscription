@@ -1,0 +1,30 @@
+{
+  "name": "calander",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install:frontend": "cd car-subscription-frontend && bun install",
+    "install:backend": "cd car-subscription-backed && bun install",
+    "install:all": "concurrently \"npm run install:frontend\" \"npm run install:backend\"",
+    "build:frontend": "cd car-subscription-frontend && bun build",
+    "build:backend": "cd car-subscription-backed && npm run build",
+    "start:frontend": "cd car-subscription-frontend && bun preview",
+    "start:backend": "cd car-subscription-backed && npm run start",
+    "build:all": "concurrently \"npm run build:frontend\" \"npm run build:backend\"",
+    "start:all": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
+    "dev:frontend": "cd car-subscription-frontend && bun dev",
+    "dev:backend": "cd car-subscription-backed && npm run dev",
+    "dev:all": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bun": "^1.1.27"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}
