@@ -6,6 +6,7 @@ import { commonValidations } from '@/common/utils/commonValidation';
 
 extendZodWithOpenApi(z);
 
+const UserRole = z.enum(["subscriber", "admin",'normal']);
 /**
  * Schema for User model using Zod
  */
@@ -18,6 +19,7 @@ export const UserSchema = z.object({
   password: z.string(),
   resetToken: z.string().optional(),
   resetTokenExpiry: z.number().optional(),
+  userType: UserRole,
   // createdAt: z.date(),
   // updatedAt: z.date(),
 });

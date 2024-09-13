@@ -2,6 +2,8 @@ import mongoose, { CallbackError, Document, Schema } from 'mongoose';
 import { User } from './userModel';
 import bcrypt from 'bcryptjs';
 
+const userType  = ['subscriber', 'admin', 'normal'];
+
 const UserSchema: Schema = new Schema(
   {
     firstName: { type: String, required: true },
@@ -10,7 +12,12 @@ const UserSchema: Schema = new Schema(
     age: { type: Number, required: true },
     password: { type: String, required: true },
     resetToken: { type: String, required: false },
-    resetTokenExpiry: { type: Number, required: false }
+    resetTokenExpiry: { type: Number, required: false },
+    userType: { 
+      type: String, 
+      enum: userType, // Enum for user roles
+      default: 'normal' // Default value
+    }
   },
   {
     versionKey: false,

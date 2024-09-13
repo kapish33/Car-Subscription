@@ -2,7 +2,7 @@
 
 interface ImportMetaEnv {
     readonly VITE_SOME_KEY: number
-    readonly BASE_URL_: string
+    readonly VITE_BASE_BE_URL: string
     // more env variables...
   }
   

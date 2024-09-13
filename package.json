@@ -7,7 +7,7 @@
     "install:frontend": "cd car-subscription-frontend && bun install",
     "install:backend": "cd car-subscription-backed && bun install",
     "install:dependencies": "concurrently \"npm run install:frontend\" \"npm run install:backend\"",
-    "build:frontend": "cd car-subscription-frontend && bun build",
+    "build:frontend": "cd car-subscription-frontend && bun run build",
     "build:backend": "cd car-subscription-backed && npm run build",
     "move:frontend": "mkdir -p frontend-deploy && cp -r car-subscription-frontend/build/* frontend-deploy/",
     "move:backend": "mkdir -p backend-deploy && cp -r car-subscription-backed/dist/* backend-deploy/",
