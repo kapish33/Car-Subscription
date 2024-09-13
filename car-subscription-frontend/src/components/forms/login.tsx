@@ -1,8 +1,8 @@
 "use client";
 import { useState, useCallback } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Button } from "@components/ui/button";
+import { Input } from "@components/ui/input";
+import { Label } from "@components/ui/label";
 import {
   Card,
   CardContent,
@@ -14,15 +14,23 @@ import {
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Link, useNavigate } from "react-router-dom";
-import axiosInstance from "@/utils/constants";
+import axiosInstance from "@utils/constants";
+import useAuthCheck from '@hooks/useAuthCheck'; // Import your custom hook
+
 
 export default function LoginForm() {
+  const isAuth = useAuthCheck(); // Use the custom hook
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate(); // Initialize useNavigate
+
+  if (isAuth) {
+    navigate("/dashboard/subscriptions"); // Redirect to dashboard if authenticated
+    return null;
+  }
 
   //   const router = useRouter()
 

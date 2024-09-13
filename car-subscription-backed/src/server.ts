@@ -13,6 +13,7 @@ import { env } from '@/common/utils/envConfig';
 import cookieParser from 'cookie-parser';
 
 import { connectDB } from './config/db';
+import { subscriptionRouter } from '@/api/subscription/subscriptionRouter';
 
 const logger = pino({ name: 'server start' });
 const app: Express = express();
@@ -37,6 +38,13 @@ app.use(requestLogger);
 // Routes
 app.use('/health-check', healthCheckRouter);
 app.use('/users', userRouter);
+app.use('/subscription', subscriptionRouter);
+// app.use('/schedules', scheduleRouter);
+// app.use('/cars', carRouter);
+// app.use('/plans', planRouter);
+// app.use('/payments', paymentRouter);
+// app.use('/reports', reportRouter);
+
 
 // Swagger UI
 app.use(openAPIRouter);
