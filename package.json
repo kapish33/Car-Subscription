@@ -6,25 +6,23 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "install:frontend": "cd car-subscription-frontend && bun install",
     "install:backend": "cd car-subscription-backed && bun install",
-    "install:all": "concurrently \"npm run install:frontend\" \"npm run install:backend\"",
+    "install:dependencies": "concurrently \"npm run install:frontend\" \"npm run install:backend\"",
     "build:frontend": "cd car-subscription-frontend && bun build",
     "build:backend": "cd car-subscription-backed && npm run build",
-    "start:frontend": "cd car-subscription-frontend && bun preview",
-    "start:backend": "cd car-subscription-backed && npm run start",
+    "move:frontend": "mkdir -p frontend-deploy && cp -r car-subscription-frontend/build/* frontend-deploy/",
+    "move:backend": "mkdir -p backend-deploy && cp -r car-subscription-backed/dist/* backend-deploy/",
     "build:all": "concurrently \"npm run build:frontend\" \"npm run build:backend\"",
+    "move:all": "concurrently \"npm run move:frontend\" \"npm run move:backend\"",
+    "build:deploy:all": "npm run build:all && npm run move:all",
+    "start:frontend": "cd car-subscription-frontend && bun run preview",
+    "start:backend": "cd car-subscription-backed && npm run start",
     "start:all": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
     "dev:frontend": "cd car-subscription-frontend && bun dev",
     "dev:backend": "cd car-subscription-backed && npm run dev",
-    "dev:all": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\""
+    "dev:all": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\""
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "bun": "^1.1.27"
-  },
-  "devDependencies": {
+    "bun": "^1.1.27",
     "concurrently": "^9.0.1"
   }
 }
