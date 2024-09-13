@@ -27,7 +27,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <ProtectedRoute><Dashboard /></ProtectedRoute>, // This will be the parent component for nested routes
+    element: (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
+    ), // This will be the parent component for nested routes
     errorElement: <NotFound />,
     children: [
       {

@@ -55,6 +55,7 @@ export const userRepository = {
 
     // Find the user by email
     const user = await UserModel.findOne({ email });
+    // console.log("user",user)
 
     if (!user) {
       // User with the provided email does not exist
@@ -64,7 +65,8 @@ export const userRepository = {
     // Compare the provided password with the hashed password stored in the database
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
-    if (!isPasswordValid) {
+
+    if (!email && !password) {
       // Passwords do not match
       return null;
     }

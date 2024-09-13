@@ -89,7 +89,7 @@ export const userRouter: Router = (() => {
     responses: createApiResponse(TokensSchema, 'User logged in successfully', StatusCodes.OK),
   });
 
-  router.post('/users/login', validateRequest(LoginPayload), async (req: Request, res: Response) => {
+  router.post('/login', validateRequest(LoginPayload), async (req: Request, res: Response) => {
     const loginUser = req.body as LoginPayloadBody;
     const serviceResponse = await userService.loginUser(loginUser);
 
@@ -133,6 +133,7 @@ export const userRouter: Router = (() => {
 
   // Validate cookie endpoint
   router.get('/validate/cookies', requestCookieValidation, async (_req: Request, res: Response) => {
+    console.log("first")
     res.send({
       success: true,
     });

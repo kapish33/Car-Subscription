@@ -40,6 +40,7 @@ export default function LoginForm() {
         email: email,
         password: password,
       });
+      console.log("response",response)
       navigate("/dashboard/subscriptions"); 
       console.log("Server Response:", response.data);
     } catch (err) {

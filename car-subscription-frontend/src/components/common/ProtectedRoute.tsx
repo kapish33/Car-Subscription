@@ -10,8 +10,7 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
     const checkAuth = async () => {
       try {
         // Make an API call to validate the cookies
-        const response = await axiosInstance.get("/validate/cookies");
-        console.log("response",response.data)
+        const response = await axiosInstance.get("/users/validate/cookies");
         if (response.status === 200) {
           setIsAuth(true); // Set authenticated if response is successful
         } else {
