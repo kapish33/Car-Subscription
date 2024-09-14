@@ -16,6 +16,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "@utils/constants";
 import useAuthCheck from '@hooks/useAuthCheck'; // Import your custom hook
+import { toast } from "@/hooks/use-toast";
 
 
 export default function LoginForm() {
@@ -48,9 +49,15 @@ export default function LoginForm() {
         email: email,
         password: password,
       });
-      console.log("response",response)
+      if(response.data.success){
+        toast({
+          variant: "default",
+          title: "Success",
+          description: "User logged in successfully",
+          duration: 1000,
+        });
+      }
       navigate("/dashboard/subscriptions"); 
-      console.log("Server Response:", response.data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {

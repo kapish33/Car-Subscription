@@ -52,10 +52,9 @@ export const userRepository = {
 
   loginUserAsync: async (credentials: LoginPayloadBody): Promise<Tokens | null> => {
     const { email, password } = credentials;
-
+    // TODO: Needs to be fixed Some SIMPLE FIXES
     // Find the user by email
     const user = await UserModel.findOne({ email });
-    // console.log("user",user)
 
     if (!user) {
       // User with the provided email does not exist
@@ -105,7 +104,6 @@ export const userRepository = {
       subject: 'Password Reset Request',
       html: `<p>You requested a password reset. Use the following token to reset your password:</p><p><strong>${resetToken}</strong></p><p>This token is valid for 15 minutes.</p>`,
     });
-    console.log("resetToken",resetToken)
 
     if (emailResult.success) {
       return 'Password reset email sent';

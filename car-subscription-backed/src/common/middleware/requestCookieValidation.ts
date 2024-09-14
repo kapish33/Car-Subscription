@@ -27,7 +27,6 @@ export const requestCookieValidation = async (req: Request, res: Response, next:
     try {
       const { user } = jwt.verify(refreshToken, env.JWT_REFRESH_SECRET) as { user: User };
       const { accessToken, refreshToken: rft } = generateTokens(user);
-      console.log("refetch Token",accessToken,rft)
 
       res.cookie('accessToken', accessToken, {
         httpOnly: true,

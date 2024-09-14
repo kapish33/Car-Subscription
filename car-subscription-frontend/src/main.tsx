@@ -5,11 +5,13 @@ import "./index.css";
 import {
   RouterProvider,
 } from "react-router-dom";
-import { router } from "@/utils/rooutes.tsx";
+import { router } from "@utils/rooutes.tsx";
+import { Toaster } from "@components/ui/toaster";
 
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <RouterProvider router={router} />
+    <Toaster />
   </StrictMode>
 );

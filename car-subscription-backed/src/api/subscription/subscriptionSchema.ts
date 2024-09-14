@@ -31,7 +31,12 @@ const subscriptionSchema = new Schema(
         },
         serviceType: {
           type: String,
-          enum: ['Interior', 'Exterior'],
+          enum: ['Interior', 'Exterior', 'Complete'],
+          required: true,
+        },
+        timeSlot: {
+          type: String,
+          enum: ['6-8 AM', '8-10 AM', '10-12 AM'],
           required: true,
         },
       },
@@ -49,4 +54,3 @@ const subscriptionSchema = new Schema(
 );
 
 export const SubscriptionModel = mongoose.model<Subscription>('Subscription', subscriptionSchema);
-

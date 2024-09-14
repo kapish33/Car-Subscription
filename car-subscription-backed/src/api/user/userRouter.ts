@@ -133,7 +133,6 @@ export const userRouter: Router = (() => {
 
   // Validate cookie endpoint
   router.get('/validate/cookies', requestCookieValidation, async (_req: Request, res: Response) => {
-    console.log("first")
     res.send({
       success: true,
     });

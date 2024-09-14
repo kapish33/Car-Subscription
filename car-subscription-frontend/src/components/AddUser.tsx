@@ -20,6 +20,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Link } from "react-router-dom";
 import axiosInstance from "@/utils/constants";
 import { faker } from "@faker-js/faker";
+import { toast } from "@/hooks/use-toast";
 
 // Define the schema for validation using Yup
 const schema = yup.object().shape({
@@ -76,9 +77,15 @@ export default function CreateUser() {
   const onSubmit = async (data: SignupData) => {
     try {
       const response = await axiosInstance.post("/users/create", data);
+      if(response.data.success){
+        toast({
+          variant: "default",
+          title: "Success",
+          description: "User created successfully",
+          duration: 1000,
+        });
+      }
       // navigate("/success"); 
-      console.log("Signup Data:", data);
-      console.log("Server Response:", response.data);
       // Handle success, e.g., redirect or display a success message
     } catch (error) {
       console.error("Error creating user:", error);

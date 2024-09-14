@@ -2,6 +2,8 @@ import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi';
 import { z } from 'zod';
 
 extendZodWithOpenApi(z);
+// Define time slot enum
+const TimeSlot = z.enum(['6-8 AM', '8-10 AM', '10-12 AM']);
 
 const CarType = z.enum(['Hatchback', 'Sedan', 'CSUV', 'SUV']);
 const PlanType = z.enum(['Daily', 'Alternate']);
@@ -20,6 +22,7 @@ export const SubscriptionSchema = z.object({
     z.object({
       date: z.string().refine((val) => !isNaN(Date.parse(val)), { message: 'Invalid date format' }),
       serviceType: ServiceType,
+      timeSlot: TimeSlot, // Time slot for the service
     })
   ),
   status: StatusType.optional(),
@@ -43,6 +46,7 @@ export const CreateSubscriptionSchema = z.object({
       z.object({
         date: z.string().refine((val) => !isNaN(Date.parse(val)), { message: 'Invalid date format' }), // Service date
         serviceType: ServiceType, // Type of service
+        timeSlot: TimeSlot, // Time slot for the service
       })
     ).min(1, { message: 'Schedule must have at least one entry' }), // Schedule array with at least one service entry
   }),

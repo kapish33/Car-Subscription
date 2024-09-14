@@ -46,5 +46,6 @@ export const subscriptionRouter: Router = (() => {
     handleServiceResponse(serviceResponse, res);
   });
 
+
   return router;
 })();

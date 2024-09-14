@@ -57,7 +57,6 @@ describe('User API Endpoints', () => {
       const responseBody: ServiceResponse<User> = response.body;
 
       // Assert
-      console.log('response.statusCode', response.statusCode);
       expect(response.statusCode).toEqual(StatusCodes.OK);
       expect(responseBody.success).toBeTruthy();
       expect(responseBody.message).toContain('User found');

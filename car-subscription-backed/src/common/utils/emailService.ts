@@ -30,7 +30,6 @@ export const sendEmail = async ({ from, to, subject, html }: SendEmailParams): P
       return { success: false, error };
     }
 
-    console.log('Email sent:', data);
     return { success: true };
   } catch (err) {
     console.error('Unexpected error:', err);
