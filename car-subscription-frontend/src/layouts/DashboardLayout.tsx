@@ -24,11 +24,10 @@ export default function Dashboard() {
             className="flex items-center gap-2 text-lg font-semibold md:text-base"
           >
             <Package2 className="h-6 w-6" />
-            <span className="sr-only">Acme Inc</span>
+            <span className="sr-only">Kapish</span>
           </NavLink>
           <NavLink
             to="/dashboard/subscriptions"
-            // className="text-foreground transition-colors hover:text-foreground"
             className={({ isActive }) =>
               isActive ? "text-foreground transition-colors hover:text-foreground" : "text-muted-foreground transition-colors hover:text-foreground"
             }
@@ -51,6 +50,22 @@ export default function Dashboard() {
           >
             User
           </NavLink>
+          <NavLink
+            to="/dashboard/all-schedule"
+            className={({ isActive }) =>
+              isActive ? "text-foreground transition-colors hover:text-foreground" : "text-muted-foreground transition-colors hover:text-foreground"
+            }
+          >
+            AllSubscribers
+          </NavLink>
+          {/* <NavLink
+            to="/dashboard/details-schedule/:id"
+            className={({ isActive }) =>
+              isActive ? "text-foreground transition-colors hover:text-foreground" : "text-muted-foreground transition-colors hover:text-foreground"
+            }
+          >
+            ScheduleID
+          </NavLink> */}
         </nav>
         <Sheet>
           <SheetTrigger asChild>
@@ -70,7 +85,7 @@ export default function Dashboard() {
                 className="flex items-center gap-2 text-lg font-semibold"
               >
                 <Package2 className="h-6 w-6" />
-                <span className="sr-only">Acme Inc</span>
+                <span className="sr-only">Kapish</span>
               </Link>
               <NavLink
                 to="/dashboard/subscriptions"

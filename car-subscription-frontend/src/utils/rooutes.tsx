@@ -8,6 +8,8 @@ import Subscriptions from "@components/Subscriptions";
 import Schedule from "@components/Schedule";
 import CreateUser from "@/components/AddUser";
 import ProtectedRoute from "@/components/common/ProtectedRoute";
+import AllSubscribers from "@/pages/AllSubscribers";
+import SubscriberById from "@/pages/SubscriberById";
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +43,15 @@ export const router = createBrowserRouter([
       {
         path: "schedule",
         element: <Schedule />, // Component for /dashboard/schedule
+      },
+      {
+        path: "all-schedule",
+        element: <AllSubscribers />, // Component for /dashboard/all-schedule
+      },
+      {
+        path: "details-schedule/:id",
+        element: <SubscriberById />, // Component for /dashboard/settings
+
       },
       {
         path: "create-user",
