@@ -10,6 +10,7 @@ import CreateUser from "@/components/AddUser";
 import ProtectedRoute from "@/components/common/ProtectedRoute";
 import AllSubscribers from "@/pages/AllSubscribers";
 import SubscriberById from "@/pages/SubscriberById";
+import EditSubscriberById from "@/pages/EditSubscriberById";
 
 export const router = createBrowserRouter([
   {
@@ -51,7 +52,10 @@ export const router = createBrowserRouter([
       {
         path: "details-schedule/:id",
         element: <SubscriberById />, // Component for /dashboard/settings
-
+      },
+      {
+        path: "edit-subscriber/:id",
+        element: <EditSubscriberById />, // Component for /dashboard/settings
       },
       {
         path: "create-user",
