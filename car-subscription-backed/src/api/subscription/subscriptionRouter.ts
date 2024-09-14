@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { subscriptionService } from '@/api/subscription/subscriptionService';
 import { createApiResponse } from '@/api-docs/openAPIResponseBuilders';
 import { handleServiceResponse, validateRequest } from '@/common/utils/httpHandlers';
-import { CreateSubscriptionSchema, SubscriptionPayload, SubscriptionSchema } from '@/api/subscription/subscriptionModel';
+import { CreateSubscriptionSchema, GetSubscriptionIdSchema, SubscriptionPayload, SubscriptionSchema } from '@/api/subscription/subscriptionModel';
 
 export const subscriptionRegistry = new OpenAPIRegistry();
 
@@ -43,6 +43,37 @@ export const subscriptionRouter: Router = (() => {
     const newSubscription = req.body as SubscriptionPayload;
     const serviceResponse = await subscriptionService.createSubscription(newSubscription);
 
+    handleServiceResponse(serviceResponse, res);
+  });
+
+  // GET /subscription/:id
+  subscriptionRegistry.registerPath({
+    method: 'get',
+    path: '/subscription/{id}',
+    tags: ['Subscription'],
+    request: { params: GetSubscriptionIdSchema.shape.params },
+    responses: createApiResponse(SubscriptionSchema, 'Subscription found successfully', StatusCodes.OK),
+  });
+
+  router.get('/:id', validateRequest(GetSubscriptionIdSchema), async (req: Request, res: Response) => {
+    const _id = req.params.id as string;
+    const serviceResponse = await subscriptionService.findById(_id);
+    handleServiceResponse(serviceResponse, res);
+  });
+
+  // PATCH /subscription/:id
+  subscriptionRegistry.registerPath({
+    method: 'patch',
+    path: '/subscription/{id}',
+    tags: ['Subscription'],
+    request: { params: GetSubscriptionIdSchema.shape.params, body: { content: { 'application/json': { schema: CreateSubscriptionSchema.shape.body } } } },
+    responses: createApiResponse(SubscriptionSchema, 'Subscription updated successfully', StatusCodes.OK),
+  });
+
+  router.patch('/:id', validateRequest(GetSubscriptionIdSchema), async (req: Request, res: Response) => {
+    const _id = req.params.id as string;
+    const subscriptionPayload = req.body as SubscriptionPayload;
+    const serviceResponse = await subscriptionService.updateSubscription(_id, subscriptionPayload);
     handleServiceResponse(serviceResponse, res);
   });
 

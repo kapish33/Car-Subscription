@@ -1,3 +1,4 @@
+import { commonValidations } from '@/common/utils/commonValidation';
 import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi';
 import { z } from 'zod';
 
@@ -56,3 +57,10 @@ export const CreateSubscriptionSchema = z.object({
  * Type for Subscription payload in POST /subscriptions/create endpoint
  */
 export type SubscriptionPayload = z.infer<typeof CreateSubscriptionSchema>['body'];
+
+/**
+ * Schema for GET users/:id endpoint input validation
+ */
+export const GetSubscriptionIdSchema = z.object({
+  params: z.object({ id: commonValidations.id }),
+});
