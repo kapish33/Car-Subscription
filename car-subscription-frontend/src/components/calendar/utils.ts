@@ -146,7 +146,7 @@ export const generateEvents = (startDate: string, subscriber: Subscriber) => {
       });
     } else {
       const scheduleForDate = subscriber?.schedule;
-
+      const status = subscriber.status; // "Active" | "Paused" | "Cancelled"
       scheduleForDate && scheduleForDate.forEach((schedule) => {
         const { start, end } = parseTimeSlot(schedule.timeSlot, currentDate);
 
@@ -156,7 +156,13 @@ export const generateEvents = (startDate: string, subscriber: Subscriber) => {
             title: `${schedule.serviceType} Cleaning (${schedule.timeSlot})`,
             start: start.toISOString(),
             end: end.toISOString(),
-            classNames: [getServiceTypeColor(schedule.serviceType), getServiceTypeColor(schedule.serviceType), "text-white"],
+            classNames: status === "Active"
+            ? [getServiceTypeColor(schedule.serviceType), getServiceTypeColor(schedule.serviceType), "text-white"]
+            : status === "Paused"
+            ? ["bg-gray-300", "text-gray-700"]
+            : status === "Cancelled"
+            ? ["bg-red-500", "text-white"]
+            : ["bg-gray-200", "text-black"],
             extendedProps: {
               description: `Service: ${schedule.serviceType}, Time Slot: ${schedule.timeSlot}`,
             },

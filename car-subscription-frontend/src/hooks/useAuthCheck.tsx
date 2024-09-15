@@ -9,7 +9,6 @@ const useAuthCheck = () => {
       try {
         // Make an API call to validate the cookies
         const response = await axiosInstance.get("/users/validate/cookies");
-        console.log("response",response)
         if (response.status === 200) {
           setIsAuth(true); // Set authenticated if response is successful
         } else {

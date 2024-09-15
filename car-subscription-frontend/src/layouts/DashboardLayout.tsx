@@ -151,6 +151,16 @@ export default function Dashboard() {
               >
                 User
               </NavLink>
+              <NavLink
+                to="/dashboard/all-schedule"
+                className={({ isActive }) =>
+                  isActive
+                    ? "hover:text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                }
+              >
+                AllSubscribers
+              </NavLink>
             </nav>
           </SheetContent>
         </Sheet>
