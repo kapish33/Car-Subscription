@@ -13,11 +13,23 @@ import {
 } from "@components/ui/dropdown-menu";
 import { Input } from "@components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@components/ui/sheet";
+import useScrollVisibility from "@/hooks/useScrollVisibility";
+import { cn } from "@/lib/utils";
 
 export default function Dashboard() {
+  const isVisible = useScrollVisibility();
+
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+      <header
+        className={cn(
+          "sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6",
+          {
+            "transform translate-y-0": isVisible,
+            "transform -translate-y-full": !isVisible,
+          }
+        )}
+      >
         <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
           <NavLink
             to="/"
@@ -29,7 +41,9 @@ export default function Dashboard() {
           <NavLink
             to="/dashboard/subscriptions"
             className={({ isActive }) =>
-              isActive ? "text-foreground transition-colors hover:text-foreground" : "text-muted-foreground transition-colors hover:text-foreground"
+              isActive
+                ? "text-foreground transition-colors hover:text-foreground"
+                : "text-muted-foreground transition-colors hover:text-foreground"
             }
           >
             Subscriptions
@@ -37,7 +51,9 @@ export default function Dashboard() {
           <NavLink
             to="/dashboard/schedule"
             className={({ isActive }) =>
-              isActive ? "text-foreground transition-colors hover:text-foreground" : "text-muted-foreground transition-colors hover:text-foreground"
+              isActive
+                ? "text-foreground transition-colors hover:text-foreground"
+                : "text-muted-foreground transition-colors hover:text-foreground"
             }
           >
             Schedule
@@ -45,7 +61,9 @@ export default function Dashboard() {
           <NavLink
             to="/dashboard/create-user"
             className={({ isActive }) =>
-              isActive ? "text-foreground transition-colors hover:text-foreground" : "text-muted-foreground transition-colors hover:text-foreground"
+              isActive
+                ? "text-foreground transition-colors hover:text-foreground"
+                : "text-muted-foreground transition-colors hover:text-foreground"
             }
           >
             User
@@ -53,7 +71,9 @@ export default function Dashboard() {
           <NavLink
             to="/dashboard/all-schedule"
             className={({ isActive }) =>
-              isActive ? "text-foreground transition-colors hover:text-foreground" : "text-muted-foreground transition-colors hover:text-foreground"
+              isActive
+                ? "text-foreground transition-colors hover:text-foreground"
+                : "text-muted-foreground transition-colors hover:text-foreground"
             }
           >
             AllSubscribers
@@ -149,7 +169,7 @@ export default function Dashboard() {
           </DropdownMenu>
         </div>
       </header>
-      <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
+      <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8 ">
         <Outlet />
       </main>
     </div>
