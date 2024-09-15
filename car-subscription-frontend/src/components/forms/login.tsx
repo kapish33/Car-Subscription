@@ -10,13 +10,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@components/ui/card";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Alert, AlertDescription } from "@components/ui/alert";
 import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "@utils/constants";
 import useAuthCheck from '@hooks/useAuthCheck'; // Import your custom hook
-import { toast } from "@/hooks/use-toast";
+import { toast } from "@hooks/use-toast";
 
 
 export default function LoginForm() {

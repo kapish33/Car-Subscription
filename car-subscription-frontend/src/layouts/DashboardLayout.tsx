@@ -2,7 +2,7 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 
 import { CircleUser, Menu, Package2, Search } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,9 +10,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+} from "@components/ui/dropdown-menu";
+import { Input } from "@components/ui/input";
+import { Sheet, SheetContent, SheetTrigger } from "@components/ui/sheet";
 
 export default function Dashboard() {
   return (

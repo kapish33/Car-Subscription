@@ -1,4 +1,4 @@
-import axiosInstance from "@/utils/constants";
+import axiosInstance from "@utils/constants";
 import { useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -8,14 +8,13 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-} from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { getStatusColor, getServiceTypeColor } from "./calendar/utils"; // Adjust the path as needed
+} from "@components/ui/popover";
+import { Button } from "@components/ui/button";
+import { Badge } from "@components/ui/badge";
+import { getServiceTypeColor, generateAdminEvents } from "./calendar/utils"; // Adjust the path as needed
 import Loading from "./common/Loading";
 import Error from "./common/Error";
 import { Subscriber } from "./calendar/types";
-import { v4 as uuidv4 } from "uuid";
 
 const Subscriptions = () => {
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
@@ -31,7 +30,9 @@ const Subscriptions = () => {
         const { responseObject } = data as { responseObject: Subscriber[] };
 
         // Calculate total events count
-        const totalEvents = responseObject.flatMap(subscriber => subscriber.schedule).length;
+        const totalEvents = responseObject.flatMap(
+          (subscriber) => subscriber.schedule
+        ).length;
         setCount(totalEvents);
 
         setSubscribers(responseObject);
@@ -45,24 +46,6 @@ const Subscriptions = () => {
     fetchSubscribers();
   }, []);
 
-  const generateEvents = (subscribers: Subscriber[]) => {
-    return subscribers.flatMap(subscriber =>
-      subscriber.schedule.map(schedule => ({
-        id: uuidv4(),
-        title: `${subscriber.user.firstName} ${subscriber.user.lastName} - ${schedule.serviceType}`,
-        start: new Date(schedule.date).toISOString(),
-        end: new Date(new Date(schedule.date).getTime() + 2 * 60 * 60 * 1000).toISOString(), // Assuming a 2-hour event duration
-        backgroundColor: getStatusColor(subscriber.status), // Color based on status
-        borderColor: getStatusColor(subscriber.status),
-        textColor: '#ffffff',
-        extendedProps: {
-          serviceType: schedule.serviceType,
-          description: `${subscriber.user.firstName} ${subscriber.user.lastName} (${subscriber.carType}) - ${schedule.timeSlot}`
-        }
-      }))
-    );
-  };
-
   if (loading) {
     return <Loading />;
   }
@@ -71,7 +54,7 @@ const Subscriptions = () => {
     return <Error error={error} />;
   }
 
-  const events = generateEvents(subscribers);
+  const events = generateAdminEvents(subscribers);
 
   return (
     <div className="container mx-auto px-4 py-8 space-y-8">
@@ -100,7 +83,9 @@ const Subscriptions = () => {
                 <p className="font-semibold">{event.title}</p>
                 <p>{event.extendedProps.description}</p>
                 <Badge
-                  className={getServiceTypeColor(event.extendedProps.serviceType)}
+                  className={getServiceTypeColor(
+                    event.extendedProps.serviceType
+                  )}
                 >
                   {event.extendedProps.serviceType}
                 </Badge>

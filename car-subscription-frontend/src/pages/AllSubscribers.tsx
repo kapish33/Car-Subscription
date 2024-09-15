@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
-import axiosInstance from '@/utils/constants'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Pagination } from '@/components/ui/pagination'
+import axiosInstance from '@utils/constants'
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@components/ui/card'
+import { Input } from '@components/ui/input'
+import { Button } from '@components/ui/button'
+import { Badge } from '@components/ui/badge'
+import { Pagination } from '@components/ui/pagination'
 import { Link } from 'react-router-dom'
 import { Search, Calendar, Car, Package } from 'lucide-react'
 import moment from 'moment'
-import Error from '@/components/common/Error'
-import Loading from '@/components/common/Loading'
+import Error from '@components/common/Error'
+import Loading from '@components/common/Loading'
 
 type Subscriber = {
   _id: string

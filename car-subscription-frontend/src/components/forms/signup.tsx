@@ -4,9 +4,9 @@ import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Button } from "@components/ui/button";
+import { Input } from "@components/ui/input";
+import { Label } from "@components/ui/label";
 import {
   Card,
   CardContent,
@@ -14,13 +14,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@components/ui/card";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Alert, AlertDescription } from "@components/ui/alert";
 import { Link, useNavigate } from "react-router-dom";
 import { faker } from "@faker-js/faker";
-import axiosInstance from "@/utils/constants";
-import { toast } from "@/hooks/use-toast";
+import axiosInstance from "@utils/constants";
+import { toast } from "@hooks/use-toast";
 
 // Define the validation schema using yup
 const schema = yup.object().shape({

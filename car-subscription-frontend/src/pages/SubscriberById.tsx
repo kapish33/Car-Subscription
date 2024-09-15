@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react'
-import axiosInstance from '@/utils/constants'
+import axiosInstance from '@utils/constants'
 import { useParams } from 'react-router-dom'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import { format } from 'date-fns'
-import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Skeleton } from '@/components/ui/skeleton'
+import { Popover, PopoverTrigger, PopoverContent } from '@components/ui/popover'
+import { Card, CardContent, CardHeader, CardTitle } from '@components/ui/card'
+import { Badge } from '@components/ui/badge'
+import { Button } from '@components/ui/button'
+import { Skeleton } from '@components/ui/skeleton'
 import { AlertCircle, Calendar, Car, Package, User, ChevronDown, ChevronUp } from 'lucide-react'
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { generateEvents, getServiceTypeColor, getStatusColor } from '@/components/calendar/utils'
-import { Subscriber } from '@/components/calendar/types'
+import { Alert, AlertDescription, AlertTitle } from '@components/ui/alert'
+import { generateEvents, getServiceTypeColor, getStatusColor } from '@components/calendar/utils'
+import type { Subscriber } from '@components/calendar/types'
 
 export default function SubscriberById() {
   const { id } = useParams<{ id: string }>()
@@ -28,7 +28,6 @@ export default function SubscriberById() {
       try {
         const { data } = await axiosInstance.get(`/subscription/${id}`)
         setSubscriber(data.responseObject)
-        console.log("data.responseObject", data.responseObject)
         setLoading(false)
       } catch (err) {
         setError('Failed to fetch subscriber')

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axiosInstance from '@/utils/constants'; // Import your configured axios instance
+import axiosInstance from '@utils/constants'; // Import your configured axios instance
 
 const useAuthCheck = () => {
   const [isAuth, setIsAuth] = useState<boolean | null>(null); // Initial state as null for loading

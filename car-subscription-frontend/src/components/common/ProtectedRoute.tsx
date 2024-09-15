@@ -1,5 +1,5 @@
 import { Navigate, useLocation } from "react-router-dom";
-import useAuthCheck from '@/hooks/useAuthCheck'; // Import your custom hook
+import useAuthCheck from '@hooks/useAuthCheck'; // Import your custom hook
 
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const isAuth = useAuthCheck(); // Use the custom hook

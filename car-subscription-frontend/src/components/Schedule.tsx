@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@components/ui/button";
 import {
   Card,
   CardContent,
@@ -9,29 +9,29 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+} from "@components/ui/card";
+import { Label } from "@components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@components/ui/radio-group";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Calendar } from "@/components/ui/calendar";
+} from "@components/ui/select";
+import { Calendar } from "@components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@components/ui/popover";
 import { CalendarIcon, PlusIcon, TrashIcon } from "lucide-react";
 import { format } from "date-fns";
-import axiosInstance from "@/utils/constants";
+import axiosInstance from "@utils/constants";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@hooks/use-toast";
 
 // Validation schema using Yup
 const validationSchema = yup.object().shape({
