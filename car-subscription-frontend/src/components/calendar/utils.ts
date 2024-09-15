@@ -2,14 +2,15 @@ import { addDays, format } from "date-fns";
 import { Subscriber } from "./types";
 import { v4 as uuidv4 } from "uuid";
 
+
 export const getServiceTypeColor = (serviceType: string) => {
   switch (serviceType) {
     case "Interior":
-      return "bg-blue-500"; // Customize color for Interior
+      return "bg-gradient-to-r from-pink-600 via-orange-500 to-pink-800"; // Customize color for Interior
     case "Exterior":
-      return "bg-green-500"; // Customize color for Exterior
+      return "bg-gradient-to-r from-green-600 via-green-500 to-green-900"; // Customize color for Exterior
     case "Complete":
-      return "bg-purple-500"; // Customize color for Complete
+      return "bg-gradient-to-r from-purple-900 via-purple-500 to-purple-600"; // Customize color for Complete
     default:
       return "bg-gray-500"; // Default color
   }
@@ -81,7 +82,7 @@ export const generateAdminEvents = (subscribers: Subscriber[]) => {
   return subscribers.flatMap((subscriber) =>
     subscriber.schedule.flatMap((schedule) => {
       const scheduleDate = new Date(schedule.date);
-      const events = [];
+      const events:Array<any> = [];
       let currentDate = scheduleDate;
 
       // Loop through each day in the range for the given schedule
@@ -105,9 +106,7 @@ export const generateAdminEvents = (subscribers: Subscriber[]) => {
               title: `${subscriber.user.firstName} ${subscriber.user.lastName} - ${schedule.serviceType}`,
               start: start.toISOString(),
               end: end.toISOString(),
-              backgroundColor: getStatusColor(subscriber.status),
-              borderColor: getStatusColor(subscriber.status),
-              textColor: "#ffffff",
+              classNames: [getServiceTypeColor(schedule.serviceType), getServiceTypeColor(schedule.serviceType), "text-white"],
               extendedProps: {
                 serviceType: schedule.serviceType,
                 description: `${subscriber.user.firstName} ${subscriber.user.lastName} (${subscriber.carType}) - ${schedule.timeSlot}`,
@@ -128,7 +127,6 @@ export const generateEvents = (startDate: string, subscriber: Subscriber) => {
   const events = [];
   let currentDate = new Date(startDate);
   const planType = subscriber.planType;
-  // Calculate the end date to cover the next 28 days
   const endDate = addDays(new Date(startDate), 28);
 
   while (currentDate <= endDate) {
@@ -139,7 +137,7 @@ export const generateEvents = (startDate: string, subscriber: Subscriber) => {
       events.push({
         id: uuidv4(),
         title: "Off",
-        start: format(addDays(currentDate, 1), 'yyyy-MM-dd'),
+        start: format(currentDate, 'yyyy-MM-dd'),
         classNames: ["bg-gray-300", "text-gray-700"],
         allDay: true,
         extendedProps: {
@@ -158,9 +156,7 @@ export const generateEvents = (startDate: string, subscriber: Subscriber) => {
             title: `${schedule.serviceType} Cleaning (${schedule.timeSlot})`,
             start: start.toISOString(),
             end: end.toISOString(),
-            backgroundColor: getServiceTypeColor(schedule.serviceType),
-            borderColor: getServiceTypeColor(schedule.serviceType),
-            textColor: '#ffffff',
+            classNames: [getServiceTypeColor(schedule.serviceType), getServiceTypeColor(schedule.serviceType), "text-white"],
             extendedProps: {
               description: `Service: ${schedule.serviceType}, Time Slot: ${schedule.timeSlot}`,
             },
@@ -169,18 +165,20 @@ export const generateEvents = (startDate: string, subscriber: Subscriber) => {
       });
 
       // For "Alternate" plan, add "Off" day after each service day
-      if (planType === "Alternate") {
-        currentDate = addDays(currentDate, 1);
-        events.push({
-          id: uuidv4(),
-          title: "Off",
-          start: format(addDays(currentDate, 1), 'yyyy-MM-dd'),
-          classNames: ["bg-gray-300", "text-gray-700"],
-          allDay: true,
-          extendedProps: {
-            description: "No service on Saturdays",
-          },
-        });
+      if (planType === "Alternate" && currentDate.getDate() % 2 === 0) {
+        currentDate = addDays(currentDate, 1); // Skip to next day to add "Off" day
+        if (currentDate <= endDate) { // Ensure the "Off" day is within the range
+          events.push({
+            id: uuidv4(),
+            title: "Off",
+            start: format(currentDate, 'yyyy-MM-dd'),
+            classNames: ["bg-gray-300", "text-gray-700"],
+            allDay: true,
+            extendedProps: {
+              description: "No service on alternate days",
+            },
+          });
+        }
       }
     }
 

@@ -76,7 +76,7 @@ export const userRouter: Router = (() => {
       setCookie(res, 'accessToken', serviceResponse.responseObject?.accessToken);
       setCookie(res, 'refreshToken', serviceResponse.responseObject?.refreshToken);
     }
-    
+
     handleServiceResponse(serviceResponse, res);
   });
 
@@ -135,6 +135,19 @@ export const userRouter: Router = (() => {
   router.get('/validate/cookies', requestCookieValidation, async (_req: Request, res: Response) => {
     res.send({
       success: true,
+    });
+  });
+
+  router.get('/clear/cookies/all', (req, res) => {
+  
+    // Set the cookie expiration date to the past
+    res.cookie('accessToken', '', { expires: new Date(0), httpOnly: true, path: '/' });
+    res.cookie('refreshToken', '', { expires: new Date(0), httpOnly: true, path: '/' });
+  
+    // Send a response indicating success
+    res.json({
+      success: true,
+      message: 'Cookies cleared successfully',
     });
   });
 

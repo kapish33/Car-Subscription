@@ -1,23 +1,37 @@
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 
-import { CircleUser, Menu, Package2, Search } from "lucide-react";
+import { CircleUser, Menu, Package2 } from "lucide-react";
 
 import { Button } from "@components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@components/ui/dropdown-menu";
-import { Input } from "@components/ui/input";
+// import { Input } from "@components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@components/ui/sheet";
-import useScrollVisibility from "@/hooks/useScrollVisibility";
-import { cn } from "@/lib/utils";
+import useScrollVisibility from "@hooks/useScrollVisibility";
+import { cn } from "@lib/utils";
+import axiosInstance from "@utils/constants";
 
 export default function Dashboard() {
   const isVisible = useScrollVisibility();
+  const navigate = useNavigate();
+
+  const handleClick = async () => {
+    try {
+      // Attempt to clear cookies by making a GET request to the server
+      await axiosInstance.get("/users/clear/cookies/all");
+      // Navigate to the home page after successfully clearing cookies
+      navigate("/");
+    } catch (error) {
+      // Handle any errors that occur during the request
+      console.error("Failed to clear cookies:", error);
+      // Optionally show an error message to the user
+      alert("Failed to clear cookies. Please try again.");
+    }
+  };
 
   return (
     <div className="flex min-h-screen w-full flex-col">
@@ -143,12 +157,12 @@ export default function Dashboard() {
         <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
           <form className="ml-auto flex-1 sm:flex-initial">
             <div className="relative">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+              {/* <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
                 type="search"
                 placeholder="Search products..."
                 className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
-              />
+              /> */}
             </div>
           </form>
           <DropdownMenu>
@@ -159,12 +173,12 @@ export default function Dashboard() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              {/* <DropdownMenuLabel>My Account</DropdownMenuLabel> */}
+              {/* <DropdownMenuSeparator /> */}
+              {/* <DropdownMenuItem>Settings</DropdownMenuItem>
+              <DropdownMenuItem>Support</DropdownMenuItem> */}
+              {/* <DropdownMenuSeparator /> */}
+              <DropdownMenuItem onClick={handleClick}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
